@@ -10,5 +10,7 @@ namespace Assets.Scripts.Chest
         [SerializeField] private TextMeshProUGUI chestName;
         [SerializeField] private TextMeshProUGUI chestStatus;
         [SerializeField] private TextMeshProUGUI timeText;
+
+
     }
 }

@@ -1,16 +1,24 @@
+using Assets.Scripts.Event;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIService : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private Button GetChestButton;
+
+
+    private EventService eventService;
+
+    private void Awake()
     {
-        
+        GetChestButton.onClick.AddListener(OnGetChest);
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public void GetServices(EventService eventService)
     {
-        
+        this.eventService = eventService;
     }
+
+    private void OnGetChest()=> eventService.OnGetChest.Invoke();
 }

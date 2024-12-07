@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chestName: Legendry
   chestType: 3
-  chestPrefab: {fileID: -5461608338286714923, guid: f25e43d3514d3ce4b99257c19e0aeb6d, type: 3}
+  chestPrefab: {fileID: 8052794548293391460, guid: 45f004641f8f78b42a50bb1f4670702b, type: 3}
   unlockTimeInSec: 3600
   minCoins: 500
   maxCoins: 2000

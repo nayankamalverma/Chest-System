@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chestName: Rare
   chestType: 1
-  chestPrefab: {fileID: -77515783879672654, guid: bdb1ab4c48a902041a01c1187b147015, type: 3}
+  chestPrefab: {fileID: 9032524268107360416, guid: bdb1ab4c48a902041a01c1187b147015, type: 3}
   unlockTimeInSec: 600
   minCoins: 40
   maxCoins: 80

@@ -8,6 +8,7 @@ public class GameService : MonoBehaviour
 {
     #region Services
     private EventService EventService;
+    [SerializeField]private UIService UIService;
     private SlotService SlotService;
     private ChestService ChestService;
 
@@ -29,7 +30,8 @@ public class GameService : MonoBehaviour
         int slotCount = Mathf.Max(4, noOfSlots);
         EventService = new EventService();
         SlotService = new SlotService(slotCount,slotView,slotContainer,EventService);
-        ChestService = new ChestService(chestSOList, EventService);
+        ChestService = new ChestService(chestSOList, EventService, SlotService);
+        UIService.GetServices(EventService);
     }
 
 }
