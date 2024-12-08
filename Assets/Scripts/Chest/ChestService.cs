@@ -10,6 +10,8 @@ namespace Assets.Scripts.Chest
 		private EventService eventService;
 		private ChestSo chestSOList;
 		private SlotService slotService;
+		private UIService uiService;
+		private ChestView chestPrefab;
 
 
 		public float commonProbability=100;
@@ -17,11 +19,13 @@ namespace Assets.Scripts.Chest
 		public float epicProbability=30;
 		public float legendaryProbability= 10;
 
-		public ChestService(ChestSo chestSOList, EventService eventService,SlotService slotService)
+		public ChestService(ChestView chetPrefab,ChestSo chestSOList, EventService eventService,SlotService slotService, UIService uIService)
 		{
+			this.chestPrefab = chetPrefab;
 			this.chestSOList = chestSOList;
 			this.eventService = eventService;
 			this.slotService = slotService;
+			this.uiService = uIService;
 			AddEventListeners();
 		}
 
@@ -44,13 +48,12 @@ namespace Assets.Scripts.Chest
 			ChestScriptableObjectScript chestData = GetRandomChest();
 			SlotController slot = slotService.GetEmptySlot();
 			if(slot!=null){
-				ChestController chestController = new ChestController(GetRandomChest(), slot.GetTransform,eventService,slot);
+				ChestController chestController = new ChestController(chestPrefab,GetRandomChest(), slot.GetTransform,eventService,slot);
 				slot.SetChestController(chestController);
 			}
 			else
 			{
-				Debug.Log("Slots full!!!!");
-				//Add mssage UI
+				uiService.ShowNotification("Slots full!!!!");
 			}
 		}
 

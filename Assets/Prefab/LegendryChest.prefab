@@ -502,7 +502,7 @@ MonoBehaviour:
   chestImage: {fileID: 7932635521404977267}
   chestName: {fileID: 8753272547083567891}
   chestStatus: {fileID: 2379853985223376853}
-  timeText: {fileID: 6945682151160256236}
+  timerText: {fileID: 6945682151160256236}
 --- !u!1 &7061170071240465155
 GameObject:
   m_ObjectHideFlags: 0

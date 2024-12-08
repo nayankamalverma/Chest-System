@@ -6,7 +6,8 @@ public class ChestScriptableObjectScript : ScriptableObject
 {
     public string chestName;
     public ChestType chestType;
-    public ChestView chestPrefab;
+    public Sprite chestLockedImage;
+    public Sprite chestOpenedImage;
     public float unlockTimeInSec;
     public int minCoins;
     public int maxCoins;

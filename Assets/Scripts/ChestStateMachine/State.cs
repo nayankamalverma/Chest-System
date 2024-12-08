@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Chest
+﻿namespace Assets.Scripts.ChestStateMachine
 {
     public enum State
     {

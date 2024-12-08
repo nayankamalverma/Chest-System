@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chestName: 'Epic '
   chestType: 2
-  chestPrefab: {fileID: 908933506964640781, guid: 418ed89bf6b174140a7c7e15da091d7e, type: 3}
+  chestLockedImage: {fileID: -1149997312631328869, guid: 46edb885eefd9854ea90cfe0cf240b84, type: 3}
+  chestOpenedImage: {fileID: -4049422559441149207, guid: 46edb885eefd9854ea90cfe0cf240b84, type: 3}
   unlockTimeInSec: 1800
   minCoins: 100
   maxCoins: 200
