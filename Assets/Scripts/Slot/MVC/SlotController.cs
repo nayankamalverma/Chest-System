@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Chest;
+using Assets.Scripts.Event;
 using UnityEngine;
 
 namespace Assets.Scripts.Slot
@@ -8,12 +9,14 @@ namespace Assets.Scripts.Slot
 		private SlotView slotView;
 		private RectTransform slotContainer;
 		private SlotState slotState;
+		private EventService eventService;
 		private ChestController chestController;
 
-		public SlotController(SlotView slotView, RectTransform slotContainer)
+		public SlotController(SlotView slotView, RectTransform slotContainer,EventService eventService)
 		{
 			this.slotView = slotView;
 			this.slotContainer = slotContainer;
+			this.eventService = eventService;
 			CreateSlot();
 		}
 
@@ -37,6 +40,7 @@ namespace Assets.Scripts.Slot
 		public bool IsSlotEmpty() => slotState == SlotState.EMPTY;
 		public void OnChestClick()
 		{
+            eventService.OnChestClick.Invoke(chestController);
 		}
 	}
 }

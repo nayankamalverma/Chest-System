@@ -22,6 +22,7 @@ public class GameService : MonoBehaviour
     [SerializeField] RectTransform slotContainer;
     //Chest Service
     [SerializeField] private ChestSo chestSOList;
+    [SerializeField] private ChestView chestPrefab;
     //
     #endregion
 
@@ -30,7 +31,7 @@ public class GameService : MonoBehaviour
         int slotCount = Mathf.Max(4, noOfSlots);
         EventService = new EventService();
         SlotService = new SlotService(slotCount,slotView,slotContainer,EventService);
-        ChestService = new ChestService(chestSOList, EventService, SlotService);
+        ChestService = new ChestService(chestPrefab,chestSOList, EventService, SlotService, UIService);
         UIService.GetServices(EventService);
     }
 

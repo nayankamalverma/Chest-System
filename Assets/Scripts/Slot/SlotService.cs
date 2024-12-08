@@ -31,7 +31,7 @@ namespace Assets.Scripts.Slot
 
 			for (int i = 0; i < noOfSlots; i++)
 			{
-				slotControllerList.Add(new SlotController(slotView, slotContainer));
+				slotControllerList.Add(new SlotController(slotView, slotContainer,eventService));
 			}
 		}
 

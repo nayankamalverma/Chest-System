@@ -11,11 +11,7 @@ public class ChestTimer : MonoBehaviour
         if (totalTimeInSeconds > 0)
         {
             totalTimeInSeconds -= Time.deltaTime;
-            int hours = Mathf.FloorToInt(totalTimeInSeconds / 3600);
-            int minutes = Mathf.FloorToInt((totalTimeInSeconds % 3600) / 60);
-            int seconds = Mathf.FloorToInt(totalTimeInSeconds % 60);
-
-            timerText.text = $"{hours:D2}:{minutes:D2}:{seconds:D2}";
+            
         }
         else
         {
