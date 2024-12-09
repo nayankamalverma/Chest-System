@@ -14,7 +14,8 @@ namespace Assets.Scripts.ChestStateMachine
 
         public void OnStateEnter()
         {
-            throw new System.NotImplementedException();
+            Owner.chestView.SetChestImage(Owner.chestModel.GetOpenedChestSprite);
+            Owner.chestView.SetTimeToUnlock("Tap to Open");
         }
 
         public void Update()

@@ -7,8 +7,8 @@ namespace Assets.Scripts.Chest
 {
     public class ChestController
     {
-        private ChestView chestView;
-        private ChestModel chestModel;
+        public ChestView chestView { get; private set; }
+        public ChestModel chestModel { get; private set;  }
         private EventService eventService;
         private SlotController slot;
         private ChestStateMachine.ChestStateMachine chestStateMachine;
@@ -20,12 +20,14 @@ namespace Assets.Scripts.Chest
             this.eventService = eventService;
             this.slot = slot;
             CreateStateMachine();
-            chestStateMachine.ChangeChestState(State.Locked);
+            ChangeChestState(State.Locked);
         }
 
         private void CreateStateMachine() => chestStateMachine = new ChestStateMachine.ChestStateMachine(this);
 
-        public ChestModel GetChestModel => chestModel;
-        public State GetChestCurrentState=> chestStateMachine.GetCurrentState();
+        public State GetChestCurrentState()=> chestStateMachine.GetCurrentState();
+
+        public void ChangeChestState(State state) => chestStateMachine.ChangeChestState(state);
+        public void RemoveGameObject() => GameObject.Destroy(chestView.gameObject);
     }
 }

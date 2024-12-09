@@ -37,7 +37,7 @@ public class UIService : MonoBehaviour
 
     private void AddEventListeners()
     {
-        eventService.OnChestClick.AddListener(ShowChestDetail);
+        //eventService.OnChestClick.AddListener(ShowChestDetail);
     }
     private void OnGetChest()=> eventService.OnGetChest.Invoke();
 
@@ -59,10 +59,10 @@ public class UIService : MonoBehaviour
         chestDetailPanel.gameObject.SetActive(false);
     }
 
-    public void ShowChestDetail(ChestController chestController)
+    public void ShowChestDetail(ChestController chestController,bool isUnlockInProgress)
     {
         chestDetailPanel.gameObject.SetActive(true);
-        chestDetailPanel.ShowChestDetails(chestController);
+        chestDetailPanel.ShowChestDetails(chestController,isUnlockInProgress);
     }
 
     private void UpdateCoinsText(int coins) { coinsText.text = coins.ToString(); }
@@ -75,7 +75,7 @@ public class UIService : MonoBehaviour
 
     private void RemoveListeners()
     {
-        eventService.OnChestClick.RemoveListener(ShowChestDetail);
+       // eventService.OnChestClick.RemoveListener(ShowChestDetail);
         getChestButton.onClick.RemoveListener(OnGetChest);
         closeChestDetailButton.onClick.RemoveListener(DeactivateChestDetailPanel);
 

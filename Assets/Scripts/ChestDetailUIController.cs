@@ -2,6 +2,7 @@ using Assets.Scripts.Chest;
 using Assets.Scripts.ChestStateMachine;
 using Assets.Scripts.Event;
 using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -39,31 +40,40 @@ public class ChestDetailUIController : MonoBehaviour
     {
     }
 
-    public void ShowChestDetails(ChestController chestController)
+    public void ShowChestDetails(ChestController chestController,bool isUnlockInProgress)
     {
-        if (chestController.GetChestCurrentState == State.Unlocked)
+        if (chestController.GetChestCurrentState() == State.Unlocked)
         {
-            chestImage.sprite = chestController.GetChestModel.GetOpenedChestSprite;
-            unlockButton.gameObject.SetActive(false);
-            openNowButton.gameObject.SetActive(false);
+            unlockButton.interactable = false;
+            openNowButton.interactable=false;
         }
-        else chestImage.sprite = chestController.GetChestModel.GetLockedChestSprite;
-
-        chestName.text = chestController.GetChestModel.GetChestName;
-        chestRarity.text = chestController.GetChestModel.GetChestType.ToString();
-        unlockTime.text = chestController.GetChestModel.GetUnlockTimeString;
+        else if((chestController.GetChestCurrentState()==State.Locked && isUnlockInProgress) || chestController.GetChestCurrentState() == State.Unlocking)
+        {
+            unlockButton.interactable = false;
+            openNowButton.interactable=true;
+        }
+        else
+        {
+            unlockButton.interactable =true;
+            openNowButton.interactable = true;
+        }
+        chestImage.sprite = chestController.chestModel.GetLockedChestSprite;
+        chestName.text = chestController.chestModel.GetChestName;
+        chestRarity.text = chestController.chestModel.GetChestType.ToString();
+        unlockTime.text = chestController.chestModel.GetUnlockTimeString;
+        gemText.text = math.ceil(chestController.chestModel.GetUnlockTime/30) + " gems";
 
     }
 
     private void OnUnlockButtonClick()
     {
-        Debug.Log("unlocking");
+        eventService.OnUnlockButtonClick.Invoke();
         uIService.DeactivateChestDetailPanel();
     }
 
     private void OnOpenNowButtonClicked()
     {
-        Debug.Log("quick unlock");
+        eventService.OnQuickUnlockButtonClick.Invoke();
         uIService.DeactivateChestDetailPanel();
     }
 

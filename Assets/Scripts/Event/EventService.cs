@@ -6,11 +6,15 @@ namespace Assets.Scripts.Event
 	{
 		public EventController OnGetChest;
 		public EventController<ChestController> OnChestClick;
+		public EventController OnUnlockButtonClick;
+		public EventController OnQuickUnlockButtonClick;
 
-		public EventService()
+        public EventService()
 		{
 			OnGetChest = new EventController();	
 			OnChestClick = new EventController<ChestController>();
+			OnUnlockButtonClick = new EventController();
+			OnQuickUnlockButtonClick = new EventController();
 		}
 	}
 }

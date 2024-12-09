@@ -8,6 +8,7 @@ namespace Assets.Scripts.ChestStateMachine
         private ChestController Owner;
         private IState currentState;
         public Dictionary<State, IState> States = new Dictionary<State, IState>();
+        private State currState;
 
         public ChestStateMachine(ChestController chestController)
         {
@@ -39,17 +40,11 @@ namespace Assets.Scripts.ChestStateMachine
             currentState?.OnStateEnter();
         }
 
-        public State GetCurrentState()
+        public State GetCurrentState()=>currState;
+        public void ChangeChestState(State newState)
         {
-            foreach (KeyValuePair<State, IState> key in States)
-            {
-                if (EqualityComparer<IState>.Default.Equals(key.Value, currentState))
-                {
-                    return key.Key;
-                }
-            }
-            throw new KeyNotFoundException("The specified value was not found in the dictionary.");
+            ChangeState(States[newState]);
+            currState = newState;
         }
-        public void ChangeChestState(State newState) => ChangeState(States[newState]);
     }
 }

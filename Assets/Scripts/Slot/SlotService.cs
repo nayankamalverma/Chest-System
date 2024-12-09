@@ -13,6 +13,7 @@ namespace Assets.Scripts.Slot
 		SlotView slotView;
 		RectTransform slotContainer;
 		EventService eventService;
+		public bool isUnlocking;
 
 		public SlotService(int slotCount, SlotView slotView, RectTransform slotContainer,EventService eventService)
 		{
@@ -22,6 +23,7 @@ namespace Assets.Scripts.Slot
 			this.eventService = eventService;
 			slotControllerList = new List<SlotController>();
 			CreateSlot();
+			isUnlocking = false;
 		}
 
 		private void CreateSlot()

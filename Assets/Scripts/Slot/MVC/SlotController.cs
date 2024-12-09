@@ -38,6 +38,7 @@ namespace Assets.Scripts.Slot
 		public void SetSlotState(SlotState slotState) => this.slotState = slotState;
 
 		public bool IsSlotEmpty() => slotState == SlotState.EMPTY;
+
 		public void OnChestClick()
 		{
             eventService.OnChestClick.Invoke(chestController);
