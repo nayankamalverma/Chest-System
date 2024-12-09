@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c48e5653b9dfdc04ca399f1b094c4f24, type: 3}
   m_Name: RareChest
   m_EditorClassIdentifier: 
-  chestName: Rare
+  chestName: Rare chest
   chestType: 1
   chestLockedImage: {fileID: 698564970121448246, guid: 46edb885eefd9854ea90cfe0cf240b84, type: 3}
   chestOpenedImage: {fileID: -4689204827313150992, guid: 46edb885eefd9854ea90cfe0cf240b84, type: 3}
