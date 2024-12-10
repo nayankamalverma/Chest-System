@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Chest;
+using Assets.Scripts.ChestStateMachine;
 using Assets.Scripts.Event;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,10 +32,14 @@ namespace Assets.Scripts.Slot
         private void AddEventListeners()
         {
 			eventService.OnGenerateRewards.AddListener(OnGenerateChest);
+			eventService.OnUnlockFinishWithTime.AddListener(OnUnlockFinishWithTime);
+			eventService.OnQuickUnlockButtonClick.AddListener(OnQuickUnlock);
         }
 		private void RemoveEventListeners()
         {
 			eventService.OnGenerateRewards.RemoveListener(OnGenerateChest);
+            eventService.OnUnlockFinishWithTime.RemoveListener(OnUnlockFinishWithTime);
+            eventService.OnQuickUnlockButtonClick.RemoveListener(OnQuickUnlock);
         }
 
         private void CreateSlot()
@@ -63,7 +68,18 @@ namespace Assets.Scripts.Slot
 			return null;
 		}
 
-		private void OnGenerateChest(int coin,int gems)
+		private void OnUnlockFinishWithTime()
+		{
+			isUnlocking = false;
+		}
+
+		private void OnQuickUnlock()
+		{
+			SlotController slot = slotControllerList.Find(s=>s.GetChestController()!=null && s.GetChestController().GetChestCurrentState()==State.Unlocking);
+			if(slot==null)isUnlocking =false;
+		}
+
+        private void OnGenerateChest(int coin,int gems)
 		{
 			isUnlocking = false;
 		}

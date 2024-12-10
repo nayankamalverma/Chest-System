@@ -29,6 +29,8 @@ namespace Assets.Scripts.Slot
 
 		public Transform GetTransform => slotView.transform; 
 
+		public ChestController GetChestController()=> chestController;
+
 		public void SetChestController(ChestController chestController)
 		{
 			this.chestController = chestController;
