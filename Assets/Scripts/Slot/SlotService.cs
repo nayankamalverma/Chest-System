@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Chest;
+using Assets.Scripts.ChestStateMachine;
 using Assets.Scripts.Event;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,7 @@ namespace Assets.Scripts.Slot
 		SlotView slotView;
 		RectTransform slotContainer;
 		EventService eventService;
+		public bool isUnlocking;
 
 		public SlotService(int slotCount, SlotView slotView, RectTransform slotContainer,EventService eventService)
 		{
@@ -22,9 +24,25 @@ namespace Assets.Scripts.Slot
 			this.eventService = eventService;
 			slotControllerList = new List<SlotController>();
 			CreateSlot();
+			isUnlocking = false;
+			AddEventListeners();
 		}
+		~SlotService() { RemoveEventListeners(); }
 
-		private void CreateSlot()
+        private void AddEventListeners()
+        {
+			eventService.OnGenerateRewards.AddListener(OnGenerateChest);
+			eventService.OnUnlockFinishWithTime.AddListener(OnUnlockFinishWithTime);
+			eventService.OnQuickUnlockButtonClick.AddListener(OnQuickUnlock);
+        }
+		private void RemoveEventListeners()
+        {
+			eventService.OnGenerateRewards.RemoveListener(OnGenerateChest);
+            eventService.OnUnlockFinishWithTime.RemoveListener(OnUnlockFinishWithTime);
+            eventService.OnQuickUnlockButtonClick.RemoveListener(OnQuickUnlock);
+        }
+
+        private void CreateSlot()
 		{
 			float height = (((noOfSlots / 4) + (noOfSlots % 4 != 0 ? 1 : 0)) * 410);
 			slotContainer.sizeDelta = new Vector2(slotContainer.sizeDelta.x, height);
@@ -48,6 +66,22 @@ namespace Assets.Scripts.Slot
 				
 			}
 			return null;
+		}
+
+		private void OnUnlockFinishWithTime()
+		{
+			isUnlocking = false;
+		}
+
+		private void OnQuickUnlock()
+		{
+			SlotController slot = slotControllerList.Find(s=>s.GetChestController()!=null && s.GetChestController().GetChestCurrentState()==State.Unlocking);
+			if(slot==null)isUnlocking =false;
+		}
+
+        private void OnGenerateChest(int coin,int gems)
+		{
+			isUnlocking = false;
 		}
 	}
 }

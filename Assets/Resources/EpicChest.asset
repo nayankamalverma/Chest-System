@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c48e5653b9dfdc04ca399f1b094c4f24, type: 3}
   m_Name: EpicChest
   m_EditorClassIdentifier: 
-  chestName: 'Epic '
+  chestName: Epic chest
   chestType: 2
   chestLockedImage: {fileID: -1149997312631328869, guid: 46edb885eefd9854ea90cfe0cf240b84, type: 3}
   chestOpenedImage: {fileID: -4049422559441149207, guid: 46edb885eefd9854ea90cfe0cf240b84, type: 3}

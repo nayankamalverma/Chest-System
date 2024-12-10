@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Event;
+﻿using Assets.Scripts.ChestStateMachine;
+using Assets.Scripts.Event;
 using Assets.Scripts.ScriptableObject;
 using Assets.Scripts.Slot;
 using UnityEngine;
@@ -12,6 +13,8 @@ namespace Assets.Scripts.Chest
 		private SlotService slotService;
 		private UIService uiService;
 		private ChestView chestPrefab;
+
+		private ChestController currentChestController;
 
 
 		public float commonProbability=100;
@@ -37,11 +40,17 @@ namespace Assets.Scripts.Chest
 		private void AddEventListeners()
 		{
 			eventService.OnGetChest.AddListener(GenerateChest);
+			eventService.OnChestClick.AddListener(OnChestClick);
+			eventService.OnUnlockButtonClick.AddListener(UnlockChest);
+			eventService.OnQuickUnlockButtonClick.AddListener(QuickUnlockChest);
 		}
 		private void RemoveEventListeners()
 		{
-			eventService.OnGetChest.RemoveListener(GenerateChest);
-		}
+            eventService.OnGetChest.RemoveListener(GenerateChest);
+            eventService.OnChestClick.RemoveListener(OnChestClick);
+            eventService.OnUnlockButtonClick.RemoveListener(UnlockChest);
+            eventService.OnQuickUnlockButtonClick.RemoveListener(QuickUnlockChest);
+        }
 
 		private void GenerateChest()
 		{
@@ -71,5 +80,38 @@ namespace Assets.Scripts.Chest
 		private ChestScriptableObjectScript FindChestSo(ChestType chestType) { 
 			return chestSOList.ChestSOList.Find(chest=>chest.chestType == chestType);
 		}
-	}
+
+		private void OnChestClick(ChestController chestController)
+		{
+            if (chestController == null) { return; }
+			currentChestController = chestController;
+			switch(chestController.GetChestCurrentState())
+			{
+				case State.Locked:
+					uiService.ShowChestDetail(chestController,slotService.isUnlocking);
+					break;
+
+				case State.Unlocking:
+                    uiService.ShowChestDetail(chestController, slotService.isUnlocking);
+					break;
+				case State.Unlocked:
+					chestController.ChangeChestState(State.Opened);
+					break ;
+				 default :
+					Debug.Log("unknown state ");
+					break;
+            }
+        }
+
+		private void UnlockChest()
+		{
+            currentChestController?.ChangeChestState(State.Unlocking);
+			slotService.isUnlocking = true;
+		}
+		private void QuickUnlockChest()
+		{
+			currentChestController?.ChangeChestState(State.Opened);
+		}
+
+    }
 }

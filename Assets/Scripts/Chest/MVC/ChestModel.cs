@@ -6,18 +6,20 @@ namespace Assets.Scripts.Chest
 	{
 		private ChestScriptableObjectScript chestData;
 		private string unlockTime;
+		private float unlockTimeSec;
 
 		public ChestModel(ChestScriptableObjectScript chestData) 
 		{
 			this.chestData = chestData;
+			unlockTimeSec = chestData.unlockTimeInSec;
 			UnlockTimeToStr();
 		}
 
         private void UnlockTimeToStr()
         {
-            int hours = Mathf.FloorToInt(chestData.unlockTimeInSec / 3600);
-            int minutes = Mathf.FloorToInt((chestData.unlockTimeInSec % 3600) / 60);
-            int seconds = Mathf.FloorToInt(chestData.unlockTimeInSec % 60);
+            int hours = Mathf.FloorToInt(unlockTimeSec/ 3600);
+            int minutes = Mathf.FloorToInt((unlockTimeSec % 3600) / 60);
+            int seconds = Mathf.FloorToInt(unlockTimeSec % 60);
 
             unlockTime = $"{hours:D2}:{minutes:D2}:{seconds:D2}";
         }
@@ -27,7 +29,12 @@ namespace Assets.Scripts.Chest
 		public Sprite GetLockedChestSprite => chestData.chestLockedImage;
 		public Sprite GetOpenedChestSprite => chestData.chestOpenedImage;
         public ChestType GetChestType => chestData.chestType;
-        public float GetUnlockTime => chestData.unlockTimeInSec;
+        public float GetUnlockTime => unlockTimeSec;
+		public void SetUnlockTime(float time)
+		{
+			unlockTimeSec = time;
+			UnlockTimeToStr();
+		}
         public string GetUnlockTimeString => unlockTime;
 		public int GetMinCoin=> chestData.minCoins;
 		public int GetMaxCoin => chestData.maxCoins;

@@ -29,15 +29,25 @@ namespace Assets.Scripts.Slot
 
 		public Transform GetTransform => slotView.transform; 
 
+		public ChestController GetChestController()=> chestController;
+
 		public void SetChestController(ChestController chestController)
 		{
 			this.chestController = chestController;
 			SetSlotState(SlotState.FILLED);
 		}
 
+		public void EmptySlot()
+		{
+			GameObject.Destroy(chestController?.chestView.gameObject);
+			chestController = null;
+            SetSlotState(SlotState.EMPTY);
+        }
+
 		public void SetSlotState(SlotState slotState) => this.slotState = slotState;
 
 		public bool IsSlotEmpty() => slotState == SlotState.EMPTY;
+
 		public void OnChestClick()
 		{
             eventService.OnChestClick.Invoke(chestController);

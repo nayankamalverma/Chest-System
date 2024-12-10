@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Chest;
+using Assets.Scripts.Event;
 
 namespace Assets.Scripts.ChestStateMachine
 {
@@ -6,25 +7,27 @@ namespace Assets.Scripts.ChestStateMachine
     {
         public ChestController Owner { get; set; }
         private ChestStateMachine stateMachine;
+        private EventService eventService;
 
-        public UnlockedState(ChestStateMachine stateMachine)
+        public UnlockedState(ChestStateMachine stateMachine, EventService eventService)
         {
             this.stateMachine = stateMachine;
+            this.eventService = eventService;
         }
 
         public void OnStateEnter()
         {
-            throw new System.NotImplementedException();
+            eventService.OnUnlockFinishWithTime.Invoke();
+            Owner.chestView.SetChestImage(Owner.chestModel.GetOpenedChestSprite);
+            Owner.chestView.SetTimeToUnlock("Tap to Open");
         }
 
         public void Update()
         {
-            throw new System.NotImplementedException();
         }
 
         public void OnStateExit()
         {
-            throw new System.NotImplementedException();
         }
     }
 }

@@ -14,7 +14,10 @@ namespace Assets.Scripts.ChestStateMachine
 
         public void OnStateEnter()
         {
-
+            Owner.chestView.SetChestImage(Owner.chestModel.GetLockedChestSprite);
+            Owner.chestView.SetChestName(Owner.chestModel.GetChestName);
+            Owner.chestView.SetChestStatus(Owner.GetChestCurrentState().ToString());
+            Owner.chestView.SetTimeToUnlock(Owner.chestModel.GetUnlockTimeString);
         }
 
         public void Update()

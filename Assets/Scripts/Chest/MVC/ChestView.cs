@@ -23,20 +23,19 @@ namespace Assets.Scripts.Chest
         public void SetController(ChestController chestController)
 		{
 			this.chestController = chestController;
-            totalTimeInSeconds = chestController.GetChestModel.GetUnlockTime;
-            SetTimeToUnlock();
-            SetChestImage(chestController.GetChestModel.GetLockedChestSprite);
-            SetChestName(chestController.GetChestModel.GetChestName);
-            SetChestStatus(chestController.GetChestCurrentState.ToString());
+            totalTimeInSeconds = chestController.chestModel.GetUnlockTime;
 		}
 
-        public void SetChestImage(Sprite chestSprite) => this.chestImage.sprite = chestSprite;
+        public void SetChestImage(Sprite chestSprite)
+        {
+            chestImage.sprite = chestSprite;
+        }
         public void SetChestName(string chestName) => this.chestName.text = chestName;
         public void SetChestStatus(string status) => chestStatus.text = status;
 
-        public void SetTimeToUnlock()
+        public void SetTimeToUnlock(string time)
         {
-            timerText.text = chestController.GetChestModel.GetUnlockTimeString;
+            timerText.text = time;
         }
         public void SetTimeToUnlock(float timeInSeconds)
         {

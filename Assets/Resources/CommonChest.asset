@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c48e5653b9dfdc04ca399f1b094c4f24, type: 3}
   m_Name: CommonChest
   m_EditorClassIdentifier: 
-  chestName: Common
+  chestName: Common chest
   chestType: 0
   chestLockedImage: {fileID: 3636562526721378698, guid: 46edb885eefd9854ea90cfe0cf240b84, type: 3}
   chestOpenedImage: {fileID: -5902911758448227768, guid: 46edb885eefd9854ea90cfe0cf240b84, type: 3}
-  unlockTimeInSec: 300
+  unlockTimeInSec: 60
   minCoins: 10
   maxCoins: 30
   minGems: 1

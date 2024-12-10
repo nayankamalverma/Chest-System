@@ -5,6 +5,7 @@
         Locked,
         Unlocking,
         Unlocked,
-        Opened
+        Opened,
+        Queue
     }
 }
