@@ -8,6 +8,7 @@ namespace Assets.Scripts.Event
 		public EventController<ChestController> OnChestClick;
 		public EventController OnUnlockButtonClick;
 		public EventController OnQuickUnlockButtonClick;
+		public EventController<int, int> OnGenerateRewards;
 
         public EventService()
 		{
