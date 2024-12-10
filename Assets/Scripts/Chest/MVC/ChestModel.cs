@@ -29,7 +29,7 @@ namespace Assets.Scripts.Chest
 		public Sprite GetLockedChestSprite => chestData.chestLockedImage;
 		public Sprite GetOpenedChestSprite => chestData.chestOpenedImage;
         public ChestType GetChestType => chestData.chestType;
-        public float GetUnlockTime => chestData.unlockTimeInSec;
+        public float GetUnlockTime => unlockTimeSec;
 		public void SetUnlockTime(float time)
 		{
 			unlockTimeSec = time;
