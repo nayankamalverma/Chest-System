@@ -46,8 +46,11 @@ namespace Assets.Scripts.Chest
 		}
 		private void RemoveEventListeners()
 		{
-			eventService.OnGetChest.RemoveListener(GenerateChest);
-		}
+            eventService.OnGetChest.RemoveListener(GenerateChest);
+            eventService.OnChestClick.RemoveListener(OnChestClick);
+            eventService.OnUnlockButtonClick.RemoveListener(UnlockChest);
+            eventService.OnQuickUnlockButtonClick.RemoveListener(QuickUnlockChest);
+        }
 
 		private void GenerateChest()
 		{
@@ -92,28 +95,23 @@ namespace Assets.Scripts.Chest
                     uiService.ShowChestDetail(chestController, slotService.isUnlocking);
 					break;
 				case State.Unlocked:
-					GenerateChestReward(currentChestController);
+					chestController.ChangeChestState(State.Opened);
 					break ;
 				 default :
-
+					Debug.Log("unknown state ");
 					break;
             }
         }
 
 		private void UnlockChest()
 		{
-			currentChestController.ChangeChestState(State.Unlocking);
+            currentChestController?.ChangeChestState(State.Unlocking);
 			slotService.isUnlocking = true;
 		}
 		private void QuickUnlockChest()
 		{
-
-			slotService.isUnlocking = true;
+			currentChestController?.ChangeChestState(State.Opened);
 		}
 
-        private void GenerateChestReward(ChestController controller)
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

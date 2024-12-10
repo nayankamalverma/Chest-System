@@ -9,6 +9,7 @@ namespace Assets.Scripts.Event
 		public EventController OnUnlockButtonClick;
 		public EventController OnQuickUnlockButtonClick;
 		public EventController<int, int> OnGenerateRewards;
+		public EventController OnUnlockFinishWithTime;
 
         public EventService()
 		{
@@ -16,6 +17,8 @@ namespace Assets.Scripts.Event
 			OnChestClick = new EventController<ChestController>();
 			OnUnlockButtonClick = new EventController();
 			OnQuickUnlockButtonClick = new EventController();
-		}
+            OnGenerateRewards = new EventController<int, int>();
+			OnUnlockFinishWithTime = new EventController();
+        }
 	}
 }

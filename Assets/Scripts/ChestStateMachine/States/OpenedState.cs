@@ -14,17 +14,16 @@ namespace Assets.Scripts.ChestStateMachine
 
         public void OnStateEnter()
         {
-            throw new System.NotImplementedException();
+            Owner.GenerateChestReward();
         }
 
         public void Update()
         {
-            throw new System.NotImplementedException();
         }
 
         public void OnStateExit()
         {
-            throw new System.NotImplementedException();
+          
         }
     }
 }

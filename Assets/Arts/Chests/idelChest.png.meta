@@ -247,7 +247,12 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      idelChest_0: -7933575828719662187
+      idelChest_1: -4457112333112813541
+      idelChest_2: 5916755800657459612
+      idelChest_3: 4708338019415915448
+      idelChest_4: -5339982494946365865
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

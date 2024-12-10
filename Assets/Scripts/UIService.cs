@@ -1,3 +1,4 @@
+using Assets.Scripts;
 using Assets.Scripts.Chest;
 using Assets.Scripts.Event;
 using System.Collections;
@@ -19,6 +20,8 @@ public class UIService : MonoBehaviour
 
 
     private EventService eventService;
+    private CoinService coinService;
+    private GemService gemService;
 
     private void Awake()
     {
@@ -28,16 +31,25 @@ public class UIService : MonoBehaviour
     }
 
 
-    public void GetServices(EventService eventService)
+    public void GetServices(EventService eventService, CoinService coinService,GemService gemService)
     {
         this.eventService = eventService;
-        chestDetailPanel.SetService(this,eventService);
+        this.gemService = gemService;
+        this.coinService = coinService;
+        chestDetailPanel.SetService(this,eventService , gemService);
+        UpdateCollectibles();
         AddEventListeners();
+    }
+
+    private void Update()
+    {
+        UpdateCollectibles();
     }
 
     private void AddEventListeners()
     {
-        //eventService.OnChestClick.AddListener(ShowChestDetail);
+        eventService.OnUnlockFinishWithTime.AddListener(DeactivateChestDetailPanel);
+        eventService.OnGenerateRewards.AddListener(UpdateCollectibles);
     }
     private void OnGetChest()=> eventService.OnGetChest.Invoke();
 
@@ -65,8 +77,21 @@ public class UIService : MonoBehaviour
         chestDetailPanel.ShowChestDetails(chestController,isUnlockInProgress);
     }
 
-    private void UpdateCoinsText(int coins) { coinsText.text = coins.ToString(); }
-    private void UpdateGemsText(int gems) { gemsText.text = gems.ToString(); }
+    private void UpdateCollectibles()
+    {
+        UpdateCoinsText(coinService.GetCoin());
+        UpdateGemsText(gemService.GetGems());
+    }
+
+    public void UpdateCollectibles(int coins, int gems)
+    {
+        ShowNotification($"Found {coins} coins and {gems} gems in chest.");
+        coinService.SetCoin(coins);
+        gemService.SetGems(gems);
+    }
+
+    private void UpdateCoinsText(int coins) { coinsText.text = "Coins : " + coins; }
+    private void UpdateGemsText(int gems) { gemsText.text = "Gems : " + gems; }
 
     private void OnDestroy()
     {
@@ -75,9 +100,10 @@ public class UIService : MonoBehaviour
 
     private void RemoveListeners()
     {
-       // eventService.OnChestClick.RemoveListener(ShowChestDetail);
         getChestButton.onClick.RemoveListener(OnGetChest);
         closeChestDetailButton.onClick.RemoveListener(DeactivateChestDetailPanel);
+        eventService.OnGenerateRewards.RemoveListener(UpdateCollectibles);
 
+        eventService.OnUnlockFinishWithTime.RemoveListener(DeactivateChestDetailPanel);
     }
 }

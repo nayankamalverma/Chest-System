@@ -35,6 +35,13 @@ namespace Assets.Scripts.Slot
 			SetSlotState(SlotState.FILLED);
 		}
 
+		public void EmptySlot()
+		{
+			GameObject.Destroy(chestController?.chestView.gameObject);
+			chestController = null;
+            SetSlotState(SlotState.EMPTY);
+        }
+
 		public void SetSlotState(SlotState slotState) => this.slotState = slotState;
 
 		public bool IsSlotEmpty() => slotState == SlotState.EMPTY;

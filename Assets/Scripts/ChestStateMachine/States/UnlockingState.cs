@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using Assets.Scripts.Chest;
-using NUnit.Framework.Interfaces;
 using UnityEngine;
 
 namespace Assets.Scripts.ChestStateMachine
@@ -20,9 +19,7 @@ namespace Assets.Scripts.ChestStateMachine
             Owner.chestView.StartCoroutine(StartUnlockTimer());
         }
 
-        public void Update()
-        {
-        }
+        public void Update() { }
 
         public void OnStateExit()
         {
@@ -30,14 +27,16 @@ namespace Assets.Scripts.ChestStateMachine
         }
         private IEnumerator StartUnlockTimer()
         {
+            
             float remainingTime = Owner.chestModel.GetUnlockTime;
             while (remainingTime > 0)
             {
-                 int hours = Mathf.FloorToInt(remainingTime / 3600);
+                int hours = Mathf.FloorToInt(remainingTime / 3600);
                 int minutes = Mathf.FloorToInt((remainingTime % 3600) / 60);
                 int seconds = Mathf.FloorToInt(remainingTime % 60);
 
-                Owner.chestView.SetChestStatus( $"{hours:D2}:{minutes:D2}:{seconds:D2}");
+                Owner.chestModel.SetUnlockTime(remainingTime);
+                Owner.chestView.SetTimeToUnlock( $"{hours:D2}:{minutes:D2}:{seconds:D2}");
                 yield return new WaitForSeconds(1);
                 remainingTime -= 1;
             }

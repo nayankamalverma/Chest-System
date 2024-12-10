@@ -24,9 +24,20 @@ namespace Assets.Scripts.Slot
 			slotControllerList = new List<SlotController>();
 			CreateSlot();
 			isUnlocking = false;
+			AddEventListeners();
 		}
+		~SlotService() { RemoveEventListeners(); }
 
-		private void CreateSlot()
+        private void AddEventListeners()
+        {
+			eventService.OnGenerateRewards.AddListener(OnGenerateChest);
+        }
+		private void RemoveEventListeners()
+        {
+			eventService.OnGenerateRewards.RemoveListener(OnGenerateChest);
+        }
+
+        private void CreateSlot()
 		{
 			float height = (((noOfSlots / 4) + (noOfSlots % 4 != 0 ? 1 : 0)) * 410);
 			slotContainer.sizeDelta = new Vector2(slotContainer.sizeDelta.x, height);
@@ -50,6 +61,11 @@ namespace Assets.Scripts.Slot
 				
 			}
 			return null;
+		}
+
+		private void OnGenerateChest(int coin,int gems)
+		{
+			isUnlocking = false;
 		}
 	}
 }

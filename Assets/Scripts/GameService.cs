@@ -1,3 +1,4 @@
+using Assets.Scripts;
 using Assets.Scripts.Chest;
 using Assets.Scripts.Event;
 using Assets.Scripts.ScriptableObject;
@@ -8,6 +9,8 @@ public class GameService : MonoBehaviour
 {
     #region Services
     private EventService EventService;
+    private CoinService CoinService;
+    private GemService GemService;
     [SerializeField]private UIService UIService;
     private SlotService SlotService;
     private ChestService ChestService;
@@ -30,9 +33,11 @@ public class GameService : MonoBehaviour
     {
         int slotCount = Mathf.Max(4, noOfSlots);
         EventService = new EventService();
+        CoinService = new CoinService();
+        GemService = new GemService();
         SlotService = new SlotService(slotCount,slotView,slotContainer,EventService);
-        ChestService = new ChestService(chestPrefab,chestSOList, EventService, SlotService, UIService);
-        UIService.GetServices(EventService);
+        ChestService = new ChestService(chestPrefab,chestSOList, EventService, SlotService,UIService);
+        UIService.GetServices(EventService,CoinService,GemService);
     }
 
 }

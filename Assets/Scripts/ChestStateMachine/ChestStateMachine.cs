@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Chest;
+using Assets.Scripts.Event;
 using System.Collections.Generic;
 
 namespace Assets.Scripts.ChestStateMachine
@@ -9,10 +10,12 @@ namespace Assets.Scripts.ChestStateMachine
         private IState currentState;
         public Dictionary<State, IState> States = new Dictionary<State, IState>();
         private State currState;
+        private EventService eventService;
 
-        public ChestStateMachine(ChestController chestController)
+        public ChestStateMachine(ChestController chestController,EventService eventService)
         {
             Owner = chestController;
+            this.eventService = eventService;
             CreateStates();
             SetOwner();
         }
@@ -20,8 +23,8 @@ namespace Assets.Scripts.ChestStateMachine
         private void CreateStates()
         {
             States.Add(State.Locked, new LockedState(this));
-            States.Add(State.Unlocking, new UnlockedState(this));
-            States.Add(State.Unlocked, new UnlockingState(this));
+            States.Add(State.Unlocking, new UnlockingState(this));
+            States.Add(State.Unlocked, new UnlockedState(this, eventService));
             States.Add(State.Opened, new OpenedState(this));
         }
 
